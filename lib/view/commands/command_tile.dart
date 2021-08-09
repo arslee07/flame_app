@@ -34,6 +34,19 @@ ExpansionTile commandTile(CommandInfoModel command, bool isEven) {
                   text: TextSpan(
                     children: <TextSpan>[
                       TextSpan(
+                          text: 'Пример: ',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      TextSpan(
+                          text: command.examples.isNotEmpty
+                              ? command.examples[0]
+                              : '(отсутствует)')
+                    ],
+                  ),
+                ),
+                RichText(
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
                           text: 'Задержка (сек.): ',
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       TextSpan(
@@ -46,19 +59,19 @@ ExpansionTile commandTile(CommandInfoModel command, bool isEven) {
                   text: TextSpan(
                     children: <TextSpan>[
                       TextSpan(
-                          text: 'Нужен премиум: ',
+                          text: 'Нужен Flame+ ',
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       TextSpan(
                         text: command.premium ? "да" : "нет",
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
-      )
+      ),
     ],
   );
 }

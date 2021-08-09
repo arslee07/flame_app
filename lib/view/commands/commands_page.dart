@@ -1,5 +1,6 @@
 import 'package:flame_app/controller/commands_controller.dart';
 import 'package:flame_app/view/commands/command_tile.dart';
+import 'package:flame_app/view/search_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +10,14 @@ class CommandsPage extends GetView<CommandsController> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Команды'),
-          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showSearch(
+                      context: context, delegate: CommandSearchDelegate());
+                },
+                icon: Icon(Icons.search))
+          ],
         ),
         body: controller.obx((state) {
           return SafeArea(
@@ -17,7 +25,6 @@ class CommandsPage extends GetView<CommandsController> {
             child: ExpansionPanelList.radio(
               children:
                   List<ExpansionPanelRadio>.generate(state!.length, (index) {
-                Get.log(state.entries.elementAt(index).key);
                 var title = state.entries.elementAt(index).key;
                 var elements = state.entries.elementAt(index).value;
                 return ExpansionPanelRadio(
@@ -29,10 +36,10 @@ class CommandsPage extends GetView<CommandsController> {
                       ));
                     },
                     body: Column(
-                        children: List<ExpansionTile>.generate(
-                            elements.length,
-                            (index) =>
-                                commandTile(elements[index], index.isEven))),
+                        children: List<ExpansionTile>.generate(elements.length,
+                            (index) {
+                      return commandTile(elements[index], index.isEven);
+                    })),
                     value: index);
               }),
             ),
